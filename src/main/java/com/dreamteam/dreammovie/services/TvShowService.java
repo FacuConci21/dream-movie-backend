@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TvShowService {
@@ -21,8 +22,13 @@ public class TvShowService {
         return listOfTvShows;
     }
 
-
     public TvShows createTvShow(TvShows tvShow){
         return repository.save(tvShow);
+    }
+
+
+
+    public void deleteTvShow(String id){
+        repository.deleteById(id);
     }
 }

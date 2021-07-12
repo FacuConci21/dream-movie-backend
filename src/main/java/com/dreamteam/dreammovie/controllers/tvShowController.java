@@ -6,13 +6,11 @@ import com.dreamteam.dreammovie.services.TvShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class tvShowController {
@@ -30,11 +28,20 @@ public class tvShowController {
         }
     }
 
-
     @PostMapping(value="/tv/create")
     public ResponseEntity<TvShows> createTvShow(@Valid @RequestBody TvShows tvShow){
         TvShows tvShowCreated = tvShowService.createTvShow(tvShow);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @DeleteMapping(value="/tv/delete")
+    public ResponseEntity<TvShows> deleteTvShow(@Valid @RequestParam(value="id") String id){
+       try{
+           tvShowService.deleteTvShow(id);
+           return new ResponseEntity(HttpStatus.OK);
+       } catch (Exception e){
+           return new ResponseEntity(HttpStatus.NOT_FOUND);
+       }
+
+    }
 }
