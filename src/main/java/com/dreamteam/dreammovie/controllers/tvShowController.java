@@ -19,12 +19,22 @@ public class tvShowController {
     private TvShowService tvShowService;
 
     @GetMapping(value="/tv")
-    public ResponseEntity<TvShows> getAll () {
+    public ResponseEntity<TvShows> getAll() {
         List<TvShows> tvShows = tvShowService.getAll();
         if( tvShows.isEmpty()){
             return new ResponseEntity(tvShows, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(tvShows, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value="/tv/{id}")
+    public ResponseEntity<TvShows> getShowById(@Valid @PathVariable String id){
+        Optional<TvShows> showFinded = tvShowService.getTvShowById(id);
+        if (showFinded.isEmpty()){
+            return new ResponseEntity(showFinded,HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity( showFinded, HttpStatus.OK);
         }
     }
 
@@ -34,14 +44,14 @@ public class tvShowController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value="/tv/delete")
-    public ResponseEntity<TvShows> deleteTvShow(@Valid @RequestParam(value="id") String id){
-       try{
-           tvShowService.deleteTvShow(id);
-           return new ResponseEntity(HttpStatus.OK);
-       } catch (Exception e){
-           return new ResponseEntity(HttpStatus.NOT_FOUND);
-       }
-
+    @DeleteMapping(value="/tv/delete/{id}")
+    public ResponseEntity<TvShows> deleteTvShow(@Valid @PathVariable String id){
+        Optional<TvShows> showFinded = tvShowService.getTvShowById(id);
+        if(showFinded.isEmpty()){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } else {
+            tvShowService.deleteTvShow(id);
+            return new ResponseEntity(HttpStatus.OK);
+        }
     }
 }

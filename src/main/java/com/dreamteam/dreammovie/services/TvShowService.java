@@ -22,6 +22,11 @@ public class TvShowService {
         return listOfTvShows;
     }
 
+    public Optional<TvShows> getTvShowById (String id){
+        Optional<TvShows> showFinded = repository.findById(id);
+        return showFinded;
+    }
+
     public TvShows createTvShow(TvShows tvShow){
         return repository.save(tvShow);
     }
