@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,4 +29,12 @@ public class tvShowController {
             return new ResponseEntity(tvShows, HttpStatus.OK);
         }
     }
+
+
+    @PostMapping(value="/tv/create")
+    public ResponseEntity<TvShows> createTvShow(@Valid @RequestBody TvShows tvShow){
+        TvShows tvShowCreated = tvShowService.createTvShow(tvShow);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
 }

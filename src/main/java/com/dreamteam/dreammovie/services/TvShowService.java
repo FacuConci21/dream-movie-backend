@@ -17,7 +17,12 @@ public class TvShowService {
     public List<TvShows> getAll(){
         Iterable<TvShows> tvShows = repository.findAll();
         List<TvShows> listOfTvShows = new ArrayList<>();
-        listOfTvShows.forEach(listOfTvShows::add);
+        tvShows.forEach(listOfTvShows::add);
         return listOfTvShows;
+    }
+
+
+    public TvShows createTvShow(TvShows tvShow){
+        return repository.save(tvShow);
     }
 }
