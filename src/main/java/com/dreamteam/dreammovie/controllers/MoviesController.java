@@ -43,4 +43,15 @@ public class MoviesController {
         Movie newMovie = this.moviesService.createMovie(movie);
         return new ResponseEntity(movie, HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value="/movies/delete/{id}")
+    public ResponseEntity<Movie> deleteMovie(@Valid @PathVariable String id){
+        Optional<Movie> showFinded = this.moviesService.getMovieById(id);
+        if(showFinded.isEmpty()){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } else {
+            this.moviesService.deleteMovie(id);
+            return new ResponseEntity( "deleted succesfully", HttpStatus.OK);
+        }
+    }
 }
