@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document @Data
-public class Movies {
+public class Movie {
     @Id private String id;
     @Field private String name;
 }

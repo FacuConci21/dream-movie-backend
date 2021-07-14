@@ -1,6 +1,6 @@
 package com.dreamteam.dreammovie.services;
 
-import com.dreamteam.dreammovie.models.TvShows;
+import com.dreamteam.dreammovie.models.TvShow;
 import com.dreamteam.dreammovie.repositories.TvShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +15,19 @@ public class TvShowService {
     @Autowired
     private TvShowRepository repository;
 
-    public List<TvShows> getAll(){
-        Iterable<TvShows> tvShows = repository.findAll();
-        List<TvShows> listOfTvShows = new ArrayList<>();
+    public List<TvShow> getAll(){
+        Iterable<TvShow> tvShows = repository.findAll();
+        List<TvShow> listOfTvShows = new ArrayList<>();
         tvShows.forEach(listOfTvShows::add);
         return listOfTvShows;
     }
 
-    public Optional<TvShows> getTvShowById (String id){
-        Optional<TvShows> showFinded = repository.findById(id);
+    public Optional<TvShow> getTvShowById (String id){
+        Optional<TvShow> showFinded = repository.findById(id);
         return showFinded;
     }
 
-    public TvShows createTvShow(TvShows tvShow){
+    public TvShow createTvShow(TvShow tvShow){
         return repository.save(tvShow);
     }
 
