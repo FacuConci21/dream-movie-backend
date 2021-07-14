@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Document
 @Data
-public class TvShows {
+public class TvShow {
     @Id private String id;
 
     @Field

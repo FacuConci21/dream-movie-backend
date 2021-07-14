@@ -1,7 +1,6 @@
 package com.dreamteam.dreammovie.controllers;
 
-import com.dreamteam.dreammovie.models.TvShows;
-import com.dreamteam.dreammovie.repositories.TvShowRepository;
+import com.dreamteam.dreammovie.models.TvShow;
 import com.dreamteam.dreammovie.services.TvShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class tvShowController {
+public class TvShowController {
 
     @Autowired
     private TvShowService tvShowService;
 
     @GetMapping(value="/tv")
-    public ResponseEntity<TvShows> getAll() {
-        List<TvShows> tvShows = tvShowService.getAll();
+    public ResponseEntity<TvShow> getAll() {
+        List<TvShow> tvShows = tvShowService.getAll();
         if( tvShows.isEmpty()){
             return new ResponseEntity(tvShows, HttpStatus.NOT_FOUND);
         } else {
@@ -29,8 +28,8 @@ public class tvShowController {
     }
 
     @GetMapping(value="/tv/{id}")
-    public ResponseEntity<TvShows> getShowById(@Valid @PathVariable String id){
-        Optional<TvShows> showFinded = tvShowService.getTvShowById(id);
+    public ResponseEntity<TvShow> getShowById(@Valid @PathVariable String id){
+        Optional<TvShow> showFinded = tvShowService.getTvShowById(id);
         if (showFinded.isEmpty()){
             return new ResponseEntity(showFinded,HttpStatus.NOT_FOUND);
         }else{
@@ -39,14 +38,14 @@ public class tvShowController {
     }
 
     @PostMapping(value="/tv/create")
-    public ResponseEntity<TvShows> createTvShow(@Valid @RequestBody TvShows tvShow){
-        TvShows tvShowCreated = tvShowService.createTvShow(tvShow);
+    public ResponseEntity<TvShow> createTvShow(@Valid @RequestBody TvShow tvShow){
+        TvShow tvShowCreated = tvShowService.createTvShow(tvShow);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @DeleteMapping(value="/tv/delete/{id}")
-    public ResponseEntity<TvShows> deleteTvShow(@Valid @PathVariable String id){
-        Optional<TvShows> showFinded = tvShowService.getTvShowById(id);
+    public ResponseEntity<TvShow> deleteTvShow(@Valid @PathVariable String id){
+        Optional<TvShow> showFinded = tvShowService.getTvShowById(id);
         if(showFinded.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
