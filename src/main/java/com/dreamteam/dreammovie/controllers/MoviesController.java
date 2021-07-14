@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController @RequestMapping(value = "/api")
 public class MoviesController {
 
     @Autowired
@@ -28,8 +28,8 @@ public class MoviesController {
         }
     }
 
-    @GetMapping(value = "/movies/{id}")
-    public ResponseEntity<Movie> getMovieById(@Valid @PathVariable String id) {
+    @GetMapping(value = "/movie")
+    public ResponseEntity<Movie> getMovieById(@Valid @RequestParam("k") String id) {
         Optional<Movie> showFinded = this.moviesService.getMovieById(id);
         if (showFinded.isEmpty()){
             return new ResponseEntity(showFinded,HttpStatus.NOT_FOUND);
@@ -38,14 +38,14 @@ public class MoviesController {
         }
     }
 
-    @PostMapping(value="/movies/create")
+    @PostMapping(value = "/movies/create")
     public ResponseEntity<Movie> createMovie(@Valid @RequestBody Movie movie) {
         Movie newMovie = this.moviesService.createMovie(movie);
         return new ResponseEntity(movie, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value="/movies/delete/{id}")
-    public ResponseEntity<Movie> deleteMovie(@Valid @PathVariable String id){
+    @DeleteMapping(value = "/movies/delete")
+    public ResponseEntity<Movie> deleteMovie(@Valid @RequestParam("k") String id){
         Optional<Movie> showFinded = this.moviesService.getMovieById(id);
         if(showFinded.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
