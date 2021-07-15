@@ -15,6 +15,9 @@ public class TvShowService {
     @Autowired
     private TvShowRepository repository;
 
+    public Boolean existTvShow(String id){
+       return repository.existsById(id);
+    }
     public List<TvShow> getAll(){
         Iterable<TvShow> tvShows = repository.findAll();
         List<TvShow> listOfTvShows = new ArrayList<>();
@@ -27,11 +30,10 @@ public class TvShowService {
         return showFinded;
     }
 
+
     public TvShow createTvShow(TvShow tvShow){
         return repository.save(tvShow);
     }
-
-
 
     public void deleteTvShow(String id){
         repository.deleteById(id);

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Document(value = "tvShows")
 @Data
 public class TvShow {
-    @JsonIgnore
+    @JsonIgnore(value = false)
     @Id private String id;
 
     @Field

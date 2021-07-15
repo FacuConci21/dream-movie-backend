@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController @RequestMapping(value = "/api")
 public class tvShowController {
 
     @Autowired
@@ -76,12 +76,12 @@ public class tvShowController {
 
     @DeleteMapping(value="/tv/delete/{id}")
     public ResponseEntity<TvShow> deleteTvShow(@Valid @PathVariable String id){
-        Optional<TvShow> showFinded = tvShowService.getTvShowById(id);
-        if(showFinded.isEmpty()){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
+        boolean showExist = tvShowService.existTvShow(id);
+        if(showExist){
             tvShowService.deleteTvShow(id);
             return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }
