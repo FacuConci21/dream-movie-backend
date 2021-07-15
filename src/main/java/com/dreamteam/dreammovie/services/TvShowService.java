@@ -30,6 +30,12 @@ public class TvShowService {
         return showFinded;
     }
 
+    public TvShow modifyShow(String id, TvShow tvShow){
+       if (tvShow.getId() == id ) {
+           return repository.save(tvShow);
+       }
+       return null;
+    }
 
     public TvShow createTvShow(TvShow tvShow){
         return repository.save(tvShow);

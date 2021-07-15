@@ -13,14 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@RestController @RequestMapping(value = "/api")
+@RestController @RequestMapping(value = "/api/tv")
 public class tvShowController {
 
     @Autowired
     private TvShowService tvShowService;
 
 
-    @GetMapping(value="/tv")
+    @GetMapping(value="/")
     public ResponseEntity<TvShow> getAll() {
        HashMap<String, List<TvShow>> hash = new HashMap<>();
         List<TvShow> tvShows = tvShowService.getAll();
@@ -58,7 +58,7 @@ public class tvShowController {
 
     }
 
-    @GetMapping(value="/tv/{id}")
+    @GetMapping(value="/{id}")
     public ResponseEntity<TvShow> getShowById(@Valid @PathVariable String id){
         Optional<TvShow> showFinded = tvShowService.getTvShowById(id);
         if (showFinded.isEmpty()){
@@ -68,13 +68,24 @@ public class tvShowController {
         }
     }
 
-    @PostMapping(value="/tv/create")
+    @PostMapping(value="/create")
     public ResponseEntity<TvShow> createTvShow(@Valid @RequestBody TvShow tvShow){
         TvShow tvShowCreated = tvShowService.createTvShow(tvShow);
         return new ResponseEntity(tvShowCreated, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value="/tv/delete/{id}")
+    @PatchMapping(value="/modify/{id}")
+    public ResponseEntity<TvShow> modifyTvShow(@Valid @PathVariable String id, @Valid @RequestBody TvShow tvShow){
+        boolean showExist = tvShowService.existTvShow(id);
+        if(showExist){
+            tvShowService.modifyShow(id, tvShow);
+            return new ResponseEntity( tvShow,HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<TvShow> deleteTvShow(@Valid @PathVariable String id){
         boolean showExist = tvShowService.existTvShow(id);
         if(showExist){
