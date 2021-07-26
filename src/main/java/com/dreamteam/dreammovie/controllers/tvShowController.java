@@ -32,7 +32,7 @@ public class tvShowController {
         }
 
         //method to get info from from API
-        /*String uri = "https://api.themoviedb.org/3/tv/popular?api_key=76ea301b5b0a49273c1693f3ec685b25&language=en-US&page=1";
+        /*String uri = "";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
