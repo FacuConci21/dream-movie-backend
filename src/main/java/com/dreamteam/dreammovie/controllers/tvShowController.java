@@ -30,32 +30,6 @@ public class tvShowController {
             hash.put("response", tvShows);
             return new ResponseEntity(hash, HttpStatus.OK);
         }
-
-        //method to get info from from API
-        /*String uri = "";
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .GET()
-                .build();
-
-        try{
-            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            JSONParser jsonParser = new JSONParser();
-            JSONObject responseJson =(JSONObject) jsonParser.parse(response.body().toString());
-            return new ResponseEntity(responseJson, HttpStatus.OK);
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-
-    return new ResponseEntity(null, HttpStatus.NOT_FOUND);*/
-
     }
 
     @GetMapping(value="/{id}")
@@ -74,7 +48,7 @@ public class tvShowController {
         return new ResponseEntity(tvShowCreated, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value="/modify/{id}")
+    @PatchMapping(value="/{id}")
     public ResponseEntity<TvShow> modifyTvShow(@Valid @PathVariable String id, @Valid @RequestBody TvShow tvShow){
         boolean showExist = tvShowService.existTvShow(id);
         if(showExist){
@@ -85,7 +59,7 @@ public class tvShowController {
         }
     }
 
-    @DeleteMapping(value="/delete/{id}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<TvShow> deleteTvShow(@Valid @PathVariable String id){
         boolean showExist = tvShowService.existTvShow(id);
         if(showExist){
